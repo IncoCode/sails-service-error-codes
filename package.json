@@ -1,6 +1,6 @@
 {
   "name": "sails-service-error-codes",
-  "version": "0.1.0",
+  "version": "1.0.3",
   "description": "",
   "license": "MIT",
   "main": "index.js",
@@ -12,5 +12,9 @@
     "chai": "*",
     "istanbul": "*",
     "mocha": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IncoCode/sails-service-error-codes"
   }
 }
