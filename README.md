@@ -12,7 +12,7 @@ Install it via npm:
 npm install sails-service-error-codes
 ```
 
-#### Usage
+## Usage
 
 Create a new service:
 ```javascript
