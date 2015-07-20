@@ -1,0 +1,16 @@
+{
+  "name": "sails-service-error-codes",
+  "version": "0.1.0",
+  "description": "",
+  "license": "MIT",
+  "main": "index.js",
+  "author": "IncoCode",
+  "scripts": {
+    "test": "istanbul cover _mocha"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "istanbul": "*",
+    "mocha": "*"
+  }
+}
