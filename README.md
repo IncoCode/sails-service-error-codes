@@ -12,10 +12,87 @@ Install it via npm:
 npm install sails-service-error-codes
 ```
 
-And include in your project:
+#### Usage
 
+Create a new service:
 ```javascript
-var sails-service-error-codes = require("sails-service-error-codes");
+// api/services/ErrorCodes.js
+
+module.exports = require('sails-service-error-codes').getCodes();
+```
+
+Now you can use ```ErrorCodes``` anywhere in your app. For example:
+```javascript
+// api/responses/ok.js
+
+module.exports = function (data, code, message, root) {
+  var response = _.assign({
+    code: code || ErrorCodes.ok.code,
+    message: message || ErrorCodes.ok.message,
+    data: data || {}
+  }, root);
+
+  this.req._sails.log.silly('Sent (200 OK)\n', response);
+
+  this.res.status(200);
+  this.res.jsonx(response);
+};
+```
+
+Also you can override or add your own error codes. Just pass object with new ones (or overrided old ones) in ```getCodes``` function:
+```javascript
+// it can be somewhere in config
+var newCodes = {
+  ok: {
+    code: 'OKAY'
+  },
+  someNewError: {
+    code: 'E_SOME_ERROR',
+    message: 'Some error'
+  }
+};
+
+module.exports = require('sails-service-error-codes').getCodes(newCodes);
+```
+
+#### Default error codes
+```javascript
+var defaultCodes = {
+  badRequest: {
+    code: 'E_BAD_REQUEST',
+    message: 'The request cannot be fulfilled due to bad syntax'
+  },
+
+  created: {
+    code: 'CREATED',
+    message: 'The request has been fulfilled and resulted in a new resource being created'
+  },
+
+  forbidden: {
+    code: 'E_FORBIDDEN',
+    message: 'User not authorized to perform the operation'
+  },
+
+  notFound: {
+    code: 'E_NOT_FOUND',
+    message: 'The requested resource could not be found but may be available again in the future'
+  },
+
+  ok: {
+    code: 'OK',
+    message: 'Operation is successfully executed'
+  },
+
+  serverError: {
+    code: 'E_INTERNAL_SERVER_ERROR',
+    message: 'Something bad happened on the server'
+  },
+
+  unauthorized: {
+    code: 'E_UNAUTHORIZED',
+    message: 'Missing or invalid authentication token'
+  }
+};
 ```
 
 ## License
