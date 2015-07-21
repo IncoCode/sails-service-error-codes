@@ -73,4 +73,11 @@ describe('Error codes', function () {
 
     done();
   });
+
+  it('should override default and add new error codes using config', function (done) {
+    var codes = ErrorCodesService.create(newCodes);
+    check(codes, _.merge(newCodes, sails.config.errorCodes));
+
+    done();
+  })
 });
