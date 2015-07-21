@@ -16,19 +16,19 @@ npm install sails-service-error-codes
 
 Create a new service:
 ```javascript
-// api/services/ErrorCodes.js
+// api/services/ERROR_CODES.js
 
-module.exports = require('sails-service-error-codes').getCodes();
+module.exports = require('sails-service-error-codes').create();
 ```
 
-Now you can use ```ErrorCodes``` anywhere in your app. For example:
+Now you can use ```ERROR_CODES``` anywhere in your app. For example:
 ```javascript
 // api/responses/ok.js
 
 module.exports = function (data, code, message, root) {
   var response = _.assign({
-    code: code || ErrorCodes.ok.code,
-    message: message || ErrorCodes.ok.message,
+    code: code || ERROR_CODES.ok.code,
+    message: message || ERROR_CODES.ok.message,
     data: data || {}
   }, root);
 
@@ -39,9 +39,10 @@ module.exports = function (data, code, message, root) {
 };
 ```
 
-Also you can override or add your own error codes. Just pass object with new ones (or overrided old ones) in ```getCodes``` function:
+Also you can override or add your own error codes:
+
+- you can pass object with new errors (or overrided old ones) in ```create``` function:
 ```javascript
-// it can be somewhere in config
 var newCodes = {
   ok: {
     code: 'OKAY'
@@ -52,8 +53,27 @@ var newCodes = {
   }
 };
 
-module.exports = require('sails-service-error-codes').getCodes(newCodes);
+module.exports = require('sails-service-error-codes').create(newCodes);
 ```
+- you can create a new config file ```errorCodes.js``` in ```config``` folder and define your error codes there:
+```javascript
+// config/errorCodes.js
+
+module.exports.errorCodes = {
+  ok: {
+    code: 'OKAY'
+  },
+  forbidden: {
+    message: 'really, forbidden'
+  },
+  newError: {
+    code: 'some error',
+    message: 'some message'
+  }
+};
+
+```
+- or use both methods described above simultaneously.
 
 #### Default error codes
 ```javascript
