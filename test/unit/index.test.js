@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var ErrorCodesService = require('../../index');
+var ErrorCodesService = require('../../index.js');
 var _ = require('lodash');
 
 var newCodes = {
@@ -45,18 +45,22 @@ describe('Entry Point', function () {
   it('should properly export', function () {
     assert.isObject(ErrorCodesService);
   });
+
+  it('should return object after create', function () {
+    assert.isObject(ErrorCodesService.create());
+  });
 });
 
 describe('Error codes', function () {
   it('should add new error codes', function (done) {
-    var codes = ErrorCodesService.getCodes(newCodes);
+    var codes = ErrorCodesService.create(newCodes);
     check(codes, newCodes);
 
     done();
   });
 
   it('should override default error codes', function (done) {
-    var codes = ErrorCodesService.getCodes(newDefCodes);
+    var codes = ErrorCodesService.create(newDefCodes);
     check(codes, newDefCodes);
 
     done();
@@ -64,7 +68,7 @@ describe('Error codes', function () {
 
   it('should override default and add new error codes', function (done) {
     var defNewCodes = _.merge(newCodes, newDefCodes);
-    var codes = ErrorCodesService.getCodes(defNewCodes);
+    var codes = ErrorCodesService.create(defNewCodes);
     check(codes, defNewCodes);
 
     done();
