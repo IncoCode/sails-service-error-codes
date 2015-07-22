@@ -75,45 +75,24 @@ module.exports.errorCodes = {
 ```
 - or use both methods described above simultaneously.
 
-#### Default error codes
+Each instance of error codes has ```merge``` function. In any place of your app you can merge your existing error codes with new ones:
 ```javascript
-var defaultCodes = {
-  badRequest: {
-    code: 'E_BAD_REQUEST',
-    message: 'The request cannot be fulfilled due to bad syntax'
-  },
-
-  created: {
-    code: 'CREATED',
-    message: 'The request has been fulfilled and resulted in a new resource being created'
-  },
-
-  forbidden: {
-    code: 'E_FORBIDDEN',
-    message: 'User not authorized to perform the operation'
-  },
-
-  notFound: {
-    code: 'E_NOT_FOUND',
-    message: 'The requested resource could not be found but may be available again in the future'
-  },
-
-  ok: {
-    code: 'OK',
-    message: 'Operation is successfully executed'
-  },
-
-  serverError: {
-    code: 'E_INTERNAL_SERVER_ERROR',
-    message: 'Something bad happened on the server'
-  },
-
-  unauthorized: {
-    code: 'E_UNAUTHORIZED',
-    message: 'Missing or invalid authentication token'
-  }
-};
+var newErrors = ERROR_CODES.merge({ok: {code: 'ok'}, newErr2: {code: 'err', message: 'msg'}});
+var latestErrors = newErrors.merge(...);
+...
 ```
+
+#### Default error codes
+
+Name | Code | Message
+:---:|:----:|:------:
+badRequest | E_BAD_REQUEST | The request cannot be fulfilled due to bad syntax
+created | CREATED | The request has been fulfilled and resulted in a new resource being created
+forbidden | E_FORBIDDEN | User not authorized to perform the operation
+notFound | E_NOT_FOUND | The requested resource could not be found but may be available again in the future
+ok | OK | Operation is successfully executed
+serverError | E_INTERNAL_SERVER_ERROR | Something bad happened on the server
+unauthorized | E_UNAUTHORIZED | Missing or invalid authentication token
 
 ## License
 
